@@ -1,0 +1,34 @@
+{
+    "name": "kovey/pulsar",
+    "type": "library",
+    "description": "pulsar Of The Kovey Framework",
+    "keywords": [
+        "framework",
+        "kovey",
+        "pulsar",
+        "php"
+    ],
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Kovey",
+            "email": "kovey@vip.qq.com",
+            "role": "developer"
+        }
+    ],
+    "require": {
+        "php": ">=8.0",
+        "ext-swoole": ">=4.6.0",
+        "kovey/logger": "^2.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.3",
+        "ext-swoole": ">=4.5.5",
+        "phpstan/phpstan": "^1.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Kovey\\Pulsar\\": "src/"
+        }
+    }
+}
