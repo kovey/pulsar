@@ -27,7 +27,10 @@
 
             $producer->send($publish);
             $result = $producer->recv();
-            echo $result;
+            echo sprintf('response: %s', $result) . PHP_EOL;
+            if ($result->isSuccess()) {
+                echo 'send message success' . PHP_EOL;
+            }
         }, $producer);
 
         go (fn () => comsume());
@@ -44,6 +47,7 @@
 
         while (true) {
             $receive = $comsumer->recv();
+            echo sprintf('receive data: %s', $receive) . PHP_EOL;
             if (!empty($receive->getMessageId())) {
                 $ack = new Acknowledge();
                 $comsumer->send($ack->setMessageId($receive->getMessageId()));
