@@ -16,7 +16,6 @@ use Kovey\Pulsar\Message\Publish;
 use Kovey\Logger\Debug;
 use function Swoole\Coroutine\run;
 use Swoole\Timer;
-use Swoole\Event;
 
 run(function () {
     Debug::setLevel(Debug::LOG_LEVEL_INFO);

@@ -11,7 +11,6 @@
     use Kovey\Pulsar\Message\Acknowledge;
     use function Swoole\Coroutine\run;
     use Swoole\Timer;
-    use Swoole\Event;
     use Swoole\Coroutine;
 
     run(function () {
