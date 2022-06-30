@@ -33,7 +33,10 @@
             echo sprintf('response: %s', $result) . PHP_EOL;
             if ($result->isSuccess()) {
                 echo 'send message success' . PHP_EOL;
+                return;
             }
+
+            echo sprintf('send message failure, error: %s', $result->getErrorMsg()) . PHP_EOL;
         }, $producer);
 
         go (fn () => comsume());
