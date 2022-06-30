@@ -21,9 +21,12 @@
                  ->create();
 
         Timer::tick(5000, function (int $timerId, Producer $producer) {
+            global $context;
+            $context ++;
             $publish = new Publish();
             $publish->setPayload('hello')
-                    ->setProperties(array('key' => 'value'));
+                    ->setProperties(array('key' => 'value'))
+                    ->setContext($context);
 
             $producer->send($publish);
             $result = $producer->recv();
