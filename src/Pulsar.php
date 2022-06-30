@@ -81,7 +81,5 @@ class Pulsar
                 $this->queue->push($data);
             }
         }
-
-        $this->client->close();
     }
 }
