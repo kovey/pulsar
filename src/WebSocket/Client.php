@@ -26,8 +26,6 @@ class Client
 
     private string $path;
 
-    private bool $isPushing = false;
-
     public function __construct(string $url)
     {
         $info = parse_url($url);

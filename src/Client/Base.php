@@ -62,6 +62,10 @@ abstract class Base
 
     public function create() : self
     {
+        if (!empty($this->client)) {
+            $this->client->close();
+        }
+
         $this->client = new Client($this->getUrl());
         if (!$this->client->connect()) {
             throw new ConnectFailure(sprintf('connect to %s failure, error: %s', $this->url, $this->client->getError()));
@@ -77,6 +81,15 @@ abstract class Base
         }
 
         return $this;
+    }
+
+    final public function __destruct()
+    {
+        if (empty($this->client)) {
+            return;
+        }
+
+        $this->client->close();
     }
 
     abstract public function recv() : ResInterface;
