@@ -77,7 +77,7 @@ abstract class Base
     public function send(ReqInterface $msg) : self
     {
         if (!$this->client->push($msg->toJson())) {
-            throw new Disconnect('send failure, connect is disconnect, error: %s', $this->client->getError());
+            throw new Disconnect(sprintf('send failure, connect is disconnect, error: %s', $this->client->getError()));
         }
 
         return $this;
