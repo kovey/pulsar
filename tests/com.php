@@ -24,8 +24,8 @@ run(function () {
     Debug::setLevel(Debug::LOG_LEVEL_INFO);
 
     $comsumer = new Comsumer('ws://127.0.0.1:8080');
-    $comsumer->setTenant('tenant')
-             ->setNamespace('namespace')
+    $comsumer->setTenant('cat')
+             ->setNamespace('opt')
              ->setTopic('notice_user_gen')
              ->setSubscription('first')
              ->create();

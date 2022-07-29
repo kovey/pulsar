@@ -21,9 +21,9 @@ run(function () {
     Debug::setLevel(Debug::LOG_LEVEL_INFO);
 
     $pulsar = new Pulsar('ws://127.0.0.1:8080');
-    $pulsar->setTenant('tenant')
-           ->setNamespace('namespace')
-           ->setTopic('topic');
+    $pulsar->setTenant('cat')
+           ->setNamespace('opt')
+           ->setTopic('notice_user_gen');
 
     Timer::tick(5000, function (int $timerId, Pulsar $pulsar) {
         Debug::debug('timer run, timerId: %s', $timerId);

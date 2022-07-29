@@ -81,10 +81,22 @@ class Pulsar
                 }
             }
 
-            $result = $this->producer->recv();
-            Debug::debug('recv data: %s', $result);
-            if (!$result->isSuccess()) {
-                $this->queue->push($data);
+            try {
+                $result = $this->producer->recv();
+                Debug::debug('recv data: %s', $result);
+                if (!$result->isSuccess()) {
+                    $this->queue->push($data);
+                }
+            } catch (Disconnect $e) {
+                try {
+                    $this->producer->create();
+                    $result = $this->producer->recv();
+                    if (!$result->isSuccess()) {
+                        $this->queue->push($data);
+                    }
+                } catch (ConnectFailure $e) {
+                } catch (Disconnect $e) {
+                }
             }
         }
     }
