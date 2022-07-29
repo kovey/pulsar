@@ -24,7 +24,7 @@ run(function () {
     $comsumer = new Comsumer('ws://127.0.0.1:8080');
     $comsumer->setTenant('tenant')
              ->setNamespace('namespace')
-             ->setTopic('topic')
+             ->setTopic('notice_user_gen')
              ->setSubscription('first')
              ->create();
     while (true) {

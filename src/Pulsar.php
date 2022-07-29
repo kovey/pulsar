@@ -17,6 +17,8 @@ use Swoole\Coroutine;
 use Kovey\Pulsar\Message\Publish;
 use Kovey\Pulsar\Message\Result;
 use Kovey\Logger\Debug;
+use Kovey\Pulsar\Exception\Disconnect;
+use Kovey\Pulsar\Exception\ConnectFailure;
 
 class Pulsar
 {
@@ -72,7 +74,11 @@ class Pulsar
                 $this->producer->send($data);
             } catch (Disconnect $e) {
                 Debug::debug('push data failure, error: %s', $e->getMessage());
-                $this->producer->create()->send($data);
+                try {
+                    $this->producer->create()->send($data);
+                } catch (ConnectFailure $e) {
+                    Debug::debug('connect to server fialure: %s', $e->getMessage());
+                }
             }
 
             $result = $this->producer->recv();
