@@ -17,6 +17,8 @@ use function Swoole\Coroutine\run;
 use Swoole\Timer;
 use Swoole\Coroutine;
 use Kovey\Pulsar\Message\Acknowledge;
+use Kovey\Pulsar\Exception\Disconnect;
+use Kovey\Pulsar\Exception\ConnectFailure;
 
 run(function () {
     Debug::setLevel(Debug::LOG_LEVEL_INFO);
@@ -28,11 +30,20 @@ run(function () {
              ->setSubscription('first')
              ->create();
     while (true) {
-        $res = $comsumer->recv();
-        Debug::debug('recv data: %s, ', $res);
-        if (!empty($res->getMessageId())) {
-            $ack = new Acknowledge();
-            $comsumer->send($ack->setMessageId($res->getMessageId()));
+        try {
+            $res = $comsumer->recv();
+            Debug::debug('recv data: %s, ', $res);
+            if (!empty($res->getMessageId())) {
+                $ack = new Acknowledge();
+                $comsumer->send($ack->setMessageId($res->getMessageId()));
+            }
+        } catch (Disconnect $e) {
+            Debug::debug('disconnect: %s', $e->getMessage());
+            try {
+                $comsumer->create();
+            } catch(ConnectFailure $e) {
+                Debug::debug('connect failure: %s', $e->getMessage());
+            }
         }
 
         Coroutine::sleep(0.01);

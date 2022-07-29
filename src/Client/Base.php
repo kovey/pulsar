@@ -64,9 +64,10 @@ abstract class Base
     {
         if (!empty($this->client)) {
             $this->client->close();
+        } else {
+            $this->client = new Client($this->getUrl());
         }
 
-        //$this->client = new Client($this->getUrl());
         if (!$this->client->connect()) {
             throw new ConnectFailure(sprintf('connect to %s failure, error: %s', $this->url, $this->client->getError()));
         }
