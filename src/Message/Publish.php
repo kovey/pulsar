@@ -41,6 +41,10 @@ class Publish implements ReqInterface
     public function setProperties(Array $properties) : self
     {
         $this->properties = $properties;
+        if (empty($this->properties)) {
+            $this->properties = new \ArrayObject();
+        }
+
         return $this;
     }
 
