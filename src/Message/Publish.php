@@ -15,7 +15,7 @@ class Publish implements ReqInterface
 {
     private string $payload;
 
-    private Array $properties;
+    private Array | \ArrayObject $properties;
 
     private string $context;
 
@@ -26,7 +26,7 @@ class Publish implements ReqInterface
     public function __construct()
     {
         $this->payload = '';
-        $this->properties = array();
+        $this->properties = new \ArrayObject();
         $this->context = '';
         $this->key = '';
         $this->replicationClusters = array();
@@ -38,7 +38,7 @@ class Publish implements ReqInterface
         return $this;
     }
 
-    public function setProperties(Array $properties) : self
+    public function setProperties(Array | \ArrayObject $properties) : self
     {
         $this->properties = $properties;
         if (empty($this->properties)) {
